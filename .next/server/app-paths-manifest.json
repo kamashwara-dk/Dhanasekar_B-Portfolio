@@ -1,11 +1,9 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/about/page": "app/about/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/experience/page": "app/experience/page.js",
-  "/page": "app/page.js",
-  "/highlights/page": "app/highlights/page.js",
-  "/projects/page": "app/projects/page.js",
   "/certs/page": "app/certs/page.js",
-  "/cv/page": "app/cv/page.js"
+  "/page": "app/page.js",
+  "/about/page": "app/about/page.js",
+  "/highlights/page": "app/highlights/page.js",
+  "/experience/page": "app/experience/page.js",
+  "/projects/page": "app/projects/page.js",
+  "/contact/page": "app/contact/page.js"
 }
