@@ -1,0 +1,92 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+html, body { height: 100%; }
+:root { --bg: 255 255 255; --fg: 15 23 42; }
+.dark  { --bg: 3 7 18;      --fg: 226 232 240; }
+
+body { background-color: rgb(var(--bg)); color: rgb(var(--fg)); }
+
+@layer components {
+  /* helpers */
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80rem; /* 7xl = 1280px = 80rem */
+    padding-left: 1rem;  /* px-4 */
+    padding-right: 1rem; /* px-4 */
+  }
+  .nav-link {
+    font-size: 0.875rem; /* text-sm */
+    transition: opacity 0.2s;
+  }
+  .nav-link:hover {
+    opacity: 0.8;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem; /* rounded-2xl */
+    padding-left: 1rem;  /* px-4 */
+    padding-right: 1rem; /* px-4 */
+    padding-top: 0.5rem; /* py-2 */
+    padding-bottom: 0.5rem; /* py-2 */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500;    /* font-medium */
+    border: 1px solid #e5e7eb; /* border, default Tailwind border color */
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); /* shadow-sm */
+    transition: opacity 0.2s;
+  }
+  .btn:hover {
+    opacity: 0.9;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px; /* rounded-full */
+    border: 1px solid #e5e7eb; /* border, default Tailwind border color */
+    padding-left: 0.75rem; /* px-3 */
+    padding-right: 0.75rem; /* px-3 */
+    padding-top: 0.25rem; /* py-1 */
+    padding-bottom: 0.25rem; /* py-1 */
+    font-size: 0.75rem; /* text-xs */
+  }
+  .card {
+    border-radius: 1rem; /* rounded-2xl */
+    border: 1px solid #e5e7eb; /* border, default Tailwind border color */
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08); /* shadow-soft (custom, adjust as needed) */
+    background-color: #fff; /* bg-white */
+  }
+  .dark .card {
+    background-color: #0f172a; /* dark:bg-slate-900 */
+    border-color: #334155; /* dark:border-slate-700 */
+  }
+  .card-header { 
+    padding: 1.25rem; /* p-5 */
+    border-bottom: 1px solid #e5e7eb; /* border-b, default Tailwind border color */
+  }
+  .dark .card-header {
+    border-bottom: 1px solid #334155; /* dark:border-slate-700 */
+  }
+  .card-title  { 
+    font-weight: 600; /* font-semibold */
+    font-size: 1.125rem; /* text-lg */
+    line-height: 1.75rem;
+  }
+  .card-desc   { 
+    font-size: 0.875rem; /* text-sm */
+    color: #475569;      /* text-slate-600 */
+  }
+  .dark .card-desc {
+    color: #94a3b8;      /* dark:text-slate-400 */
+  }
+  .card-content{ padding: 1.25rem; }
+}
+
+/* subtle static gradient behind canvas */
+.bg-gradient {
+  background: radial-gradient(1200px 600px at 10% -10%, rgba(59,130,246,0.15), transparent 50%),
+              radial-gradient(1000px 500px at 100% 0%, rgba(16,185,129,0.12), transparent 50%);
+}
