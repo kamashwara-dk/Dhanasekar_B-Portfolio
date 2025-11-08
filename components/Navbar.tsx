@@ -1,162 +1,125 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Moon, Sun, Menu } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-
-  // Prevent body scroll when the mobile menu is open
-  useEffect(() => {
-    if (open) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }
-  }, [open]);
+  const { theme, setTheme } = useTheme();
 
   return (
-    <>
-      {/* Top bar */}
-      <header
-        className="
-          sticky top-0 z-50
-          border-b
-          bg-white/80 dark:bg-slate-950/70
-          backdrop-blur supports-[backdrop-filter]:bg-white/60
-          dark:supports-[backdrop-filter]:bg-slate-950/70
-        "
-      >
-        <div className="container mx-auto max-w-7xl px-4 py-3 flex items-center gap-4">
+    <header
+      className="
+        fixed inset-x-0 top-0 z-[9999]
+        bg-white/80 dark:bg-slate-900/80
+        backdrop-blur-md border-b border-slate-300 dark:border-slate-700
+      "
+    >
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+        
+        {/* LEFT: LOGO */}
+        <Link href="/" className="text-xl font-bold text-slate-900 dark:text-white">
+          Dhanasekar Boovaraghamoorthy
+        </Link>
+
+        {/* DESKTOP MENU */}
+        <div className="hidden md:flex items-center gap-8 text-slate-900 dark:text-white">
+          <Link href="/about">About</Link>
+          <Link href="/highlights">Highlights</Link>
+          <Link href="/experience">Experience</Link>
+          <Link href="/projects">Projects</Link>
+          <Link href="/certs">Certs</Link>
+          <Link href="/contact">Contact</Link>
+
+          {/* View CV */}
           <Link
-            href="/"
-            className="font-extrabold tracking-tight text-lg text-slate-900 dark:text-slate-100"
+            href="/cv"
+            className="
+              px-4 py-2 rounded-xl border border-slate-500 
+              hover:bg-slate-200 dark:hover:bg-slate-700 transition
+            "
           >
-            Dhanasekar Boovaraghamoorthy
+            View CV
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="ml-auto hidden md:flex items-center gap-6 text-sm">
-            <NavLink href="/about">About</NavLink>
-            <NavLink href="/highlights">Highlights</NavLink>
-            <NavLink href="/experience">Experience</NavLink>
-            <NavLink href="/projects">Projects</NavLink>
-            <NavLink href="/certs">Certs</NavLink>
-            <NavLink href="/contact">Contact</NavLink>
-
-            <Link
-              href="/cv"
-              className="rounded-xl border px-3 py-1.5 text-sm font-medium
-                         text-slate-900 dark:text-slate-100
-                         border-slate-300/70 dark:border-slate-700
-                         hover:bg-slate-100 dark:hover:bg-slate-800"
-            >
-              View CV
-            </Link>
-          </nav>
-
-          {/* Mobile burger */}
+          {/* DARK MODE TOGGLE */}
           <button
-            onClick={() => setOpen(true)}
-            className="ml-auto md:hidden rounded-xl border border-slate-300/70 dark:border-slate-700 px-3 py-1.5 text-sm
-                       text-slate-900 dark:text-slate-100"
-            aria-label="Open menu"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="p-2 rounded-xl border border-slate-500"
           >
-            Menu
+            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </button>
         </div>
-      </header>
 
-      {/* Mobile menu (overlay + panel) */}
+        {/* MOBILE HAMBURGER */}
+        <button
+          className="md:hidden text-slate-900 dark:text-white p-2"
+          onClick={() => setOpen(true)}
+        >
+          <Menu size={28} />
+        </button>
+      </nav>
+
+      {/* ✅ FULLSCREEN MOBILE MENU */}
       {open && (
-        <div className="fixed inset-0 z-50">
-          {/* Opaque/semi-opaque backdrop so content doesn’t show through */}
+        <div className="fixed inset-0 z-[99999] flex md:hidden">
+
+          {/* BACKDROP */}
           <div
-            className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
+            className="absolute inset-0 bg-black/60"
             onClick={() => setOpen(false)}
-            aria-hidden="true"
           />
 
-          {/* Slide-down panel */}
-          <div className="absolute inset-x-0 top-0 rounded-b-2xl border-b
-                          bg-white dark:bg-slate-900
-                          text-slate-900 dark:text-slate-100 shadow-xl">
-            <div className="container mx-auto max-w-7xl px-4 py-4">
-              <div className="flex items-center justify-between">
-                <div className="text-lg font-semibold">Menu</div>
-                <button
-                  className="rounded-lg border px-3 py-1.5 text-sm
-                             border-slate-300/70 dark:border-slate-700
-                             hover:bg-slate-100 dark:hover:bg-slate-800"
-                  onClick={() => setOpen(false)}
-                  aria-label="Close menu"
-                >
-                  Close
-                </button>
-              </div>
-
-              <div className="mt-4 grid gap-2 text-base">
-                <MobileLink onClick={() => setOpen(false)} href="/about">About</MobileLink>
-                <MobileLink onClick={() => setOpen(false)} href="/highlights">Highlights</MobileLink>
-                <MobileLink onClick={() => setOpen(false)} href="/experience">Experience</MobileLink>
-                <MobileLink onClick={() => setOpen(false)} href="/projects">Projects</MobileLink>
-                <MobileLink onClick={() => setOpen(false)} href="/certs">Certs</MobileLink>
-                <MobileLink onClick={() => setOpen(false)} href="/contact">Contact</MobileLink>
-
-                <Link
-                  href="/cv"
-                  onClick={() => setOpen(false)}
-                  className="mt-2 inline-flex items-center justify-center rounded-xl border px-4 py-2
-                             border-slate-300/70 dark:border-slate-700
-                             text-slate-900 dark:text-slate-100
-                             hover:bg-slate-100 dark:hover:bg-slate-800"
-                >
-                  View CV
-                </Link>
-              </div>
+          {/* MENU PANEL */}
+          <div
+            className="
+              relative w-full h-full
+              bg-white dark:bg-slate-900
+              text-slate-900 dark:text-slate-100
+              p-6 overflow-y-auto
+            "
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold">Menu</h2>
+              <button
+                onClick={() => setOpen(false)}
+                className="rounded-full border border-slate-400 dark:border-slate-600 px-4 py-1 text-lg"
+              >
+                ✕
+              </button>
             </div>
+
+            <nav className="flex flex-col gap-6 text-lg">
+              <Link href="/about" onClick={() => setOpen(false)}>About</Link>
+              <Link href="/highlights" onClick={() => setOpen(false)}>Highlights</Link>
+              <Link href="/experience" onClick={() => setOpen(false)}>Experience</Link>
+              <Link href="/projects" onClick={() => setOpen(false)}>Projects</Link>
+              <Link href="/certs" onClick={() => setOpen(false)}>Certs</Link>
+              <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
+
+              {/* CV Button */}
+              <Link
+                href="/cv"
+                className="mt-4 w-full text-center rounded-xl border border-slate-600 py-3"
+                onClick={() => setOpen(false)}
+              >
+                View CV
+              </Link>
+
+              {/* DARK MODE BUTTON */}
+              <button
+                className="mt-4 flex items-center justify-center gap-2 p-3 rounded-xl border border-slate-600"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+                {theme === "dark" ? "Light Mode" : "Dark Mode"}
+              </button>
+            </nav>
           </div>
         </div>
       )}
-    </>
-  );
-}
-
-function NavLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Link
-      href={href}
-      className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
-    >
-      {children}
-    </Link>
-  );
-}
-
-function MobileLink({
-  href,
-  onClick,
-  children,
-}: {
-  href: string;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className="rounded-lg px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800"
-    >
-      {children}
-    </Link>
+    </header>
   );
 }
