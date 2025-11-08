@@ -3,9 +3,9 @@
   "/about/page": "app/about/page.js",
   "/contact/page": "app/contact/page.js",
   "/experience/page": "app/experience/page.js",
+  "/page": "app/page.js",
   "/highlights/page": "app/highlights/page.js",
   "/projects/page": "app/projects/page.js",
-  "/page": "app/page.js",
-  "/cv/page": "app/cv/page.js",
-  "/certs/page": "app/certs/page.js"
+  "/certs/page": "app/certs/page.js",
+  "/cv/page": "app/cv/page.js"
 }
